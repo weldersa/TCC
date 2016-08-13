@@ -4,11 +4,6 @@ if ($_SERVER["REQUEST_METHOD"] != "POST"){
     header('location: cadastro.php');
 }
 
-
-if(!isset($_POST) || empty($_POST)){
-    
-}
-
 include "classes/conexao.class.php";
 include "classes/instituicao.class.php";
 
