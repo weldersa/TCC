@@ -1,0 +1,53 @@
+
+.table_header #header_enunciado,
+.table_body #body_enunciado{
+  width: 65%;
+}
+
+.table_body #body_tipo,
+.table_header #header_tipo{
+  width: 25%;
+}
+
+.table_body #body_peso,
+.table_header #header_peso{
+  width: 10%;
+}
+
+.table_header #header_peso{
+  text-align: left;
+}
+
+.table_body #body_codigo{
+  display: none;
+}
+
+.table_body #body_nenhuma{
+  width: 100%;
+}
+
+.table_body{
+  border: solid #0D47A1 2px;
+  text-align: center;
+  max-height: 400px;
+  overflow-y: scroll; 
+}
+
+.table_body table{
+  width: 100%;
+}
+
+.table_body table tr:hover{
+  background-color: #EEEEEE;
+  cursor: pointer;
+}
+
+.table_body table tr{
+  background-color: white;
+  border-bottom: solid grey 1px;
+}
+
+.table_body table tr td:nth-child(2),
+.table_body table tr td:first-child{
+  border-right: solid grey 1px;
+}
