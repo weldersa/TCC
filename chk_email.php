@@ -6,7 +6,7 @@ $conexao = new Conexao();
 $email = $_POST['txt_email'];
 $data = array();
 
-$query = ("SELECT inst_email FROM instituicoes WHERE inst_email = '{$email}';");
+$query = ("SELECT user_email FROM usuarios WHERE user_email = '{$email}';");
 $resultado = $conexao->executaComando($query) or die("ERRO : ".$query);
 
     if(mysqli_num_rows($resultado) != 0){

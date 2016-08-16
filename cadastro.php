@@ -41,8 +41,7 @@
                                 <label for="txt_nome_instituicao" class="label-form-cadastro">Nome da Instituição:</label>
                                 <input type="text" name="txt_nome_instituicao" id="txt_nome_instituicao" class="form-control" required autofocus>
                             </div>
-                        </div>                  
-                        
+                        </div>
                         
                         <div class="row" id="div_email">  
                             <div class="col-md-12">
@@ -90,7 +89,7 @@
                         <div class="row">    
                             <div class="col-md-12">
                                 <label class="label-form-cadastro">Telefone:</label>
-                                <input type="text" name="txt_telefone" id="txt_telefone" class="form-control" required> 
+                                <input type="text" name="txt_telefone" id="txt_telefone" class="form-control" maxlength="15" required> 
                             </div>
                         </div> 
                             
@@ -273,7 +272,9 @@
         }
     });
 
-
+    $(document).ready(function(){
+        $('#txt_telefone').mask("(99) 99999999?9");
+    });
 
     $(document).ready(function(){                           
         //Seta a mascara padrão do campo documento como CNPJ
