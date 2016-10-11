@@ -24,7 +24,8 @@ DESCRIÇÃO: Página de início, primeira página após o login
         <?PHP include 'menu.php'; ?>
         
         <div class="container"> <!-- Onde vai ficar o conteúdo da página -->
-            
+            <h3>Bem vindo ao Frage</h3>
+            <h4>Para começar escolha uma das opções no menu de navegação</h4>
                       
         </div> <!-- Fim do Conteúdo da página -->
         

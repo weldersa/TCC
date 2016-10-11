@@ -25,11 +25,10 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 						case "A":
 							echo '
 								<li class="active" id="home"><a href="home.php">Início</a></li>
-								<li data-toggle="collapse" data-target="#opcoes_questionario"><a href="#">Questionários</a></li>
+								<li id="responderQuestionarios"><a href="questionarios_para_responder.php">Responder Questionários</a></li>
+								<!--<li data-toggle="collapse" data-target="#opcoes_questionario"><a href="#">Questionários</a></li>
 									<ul class="collapse" id="opcoes_questionario">
-										<li class="submenu"><a href="#">Responder</a></li>
-										<li class="submenu"><a href="#">Questionários Respondidos</a></li>
-									</ul>
+									</ul>-->
 								<li><a href="#">Consultar Notas</a></li>
 								<li><a id="about" href="about.php">Sobre</a></li>
 							';
@@ -43,6 +42,12 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 										<li class="submenu" id="criar_questionario"><a href="#">Criar</a></li>
 										<li class="submenu"><a href="#">Responder</a></li>
 										<li class="submenu"><a href="#">Corrigir</a></li>                   
+									</ul>
+								<li data-toggle="collapse" data-target="#opcoes_admin"><a href="#">Admin</a></li>
+									<ul class="collapse" id="opcoes_admin">
+										<li class="submenu" id="turmas"><a href="#">Turmas</a></li>                   
+										<li class="submenu" id="professores"><a href="#">Professores</a></li>
+										<li class="submenu" id="alunos"><a href="cadastro_aluno.php">Alunos</a></li>
 									</ul>
 								<li><a href="#">Consultar Notas</a></li>
 								<li><a id="about" href="about.php">Sobre</a></li>

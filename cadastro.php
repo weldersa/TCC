@@ -15,11 +15,15 @@
         <script type="text/javascript" src="js/jquery-1.12.2.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/jquery.maskedinput.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-default"> <!-- Começo da Barra de Navegação -->
             <div class="container-fluid">
+                <div class="navbar-header navbar-left pull-left">
+                    <a class="navbar-brand" href="index.php" style="padding-top: 0px;">	
+						<img alt="brand" src="resources/images/logo-color-sm.png" height="50px" style="padding-top: 3px;">
+				    </a>
+                </div>
                 <form action="index.php" class="navbar-header pull-right">                
                     <button type="submit" id="btn_login" class="btn btn-success pull-left" href="index.php">Login</button>
                 </form>
@@ -28,7 +32,7 @@
         
         <div class="container">
             <div class="wrapper">
-                <form class="form-signin" id="form_login" method="POST" action="cadastrando.php">
+                <form class="form-signin" id="form_cadastro" method="POST" action="scripts/cadastrando.php">
                     <div id="txtLogin" class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
@@ -38,15 +42,15 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="txt_nome_instituicao" class="label-form-cadastro">Nome da Instituição:</label>
+                                <label id="label_instituicao" for="txt_nome_instituicao" class="label-form-cadastro">Nome da Instituição:</label>
                                 <input type="text" name="txt_nome_instituicao" id="txt_nome_instituicao" class="form-control" required autofocus>
                             </div>
-                        </div>
+                        </div>                  
+                        
                         
                         <div class="row" id="div_email">  
                             <div class="col-md-12">
-                                <a href="#" id="email"></a>
-                                <label class="label-form-cadastro">Email da Instituição:</label>
+                                <label label="label_email" for="txt_email" class="label-form-cadastro">Email da Instituição:</label>
                                 <input type="email" name="txt_email" id="txt_email" class="form-control" required>
                                 <label id="email_uso" class="sr-only control-label">Email em uso!</label>
                                 <label id="email_valido" class="sr-only control-label">Email disponível</label>
@@ -56,11 +60,12 @@
                         
                         <div class="row" id="div_senha">
                             <div class="col-md-6">
-                                <a href="#" id="senha"></a>
                                 <div id="senha-esquerda">
                                     <label class="label-form-cadastro">Senha:</label>
                                     <input type="password" id="txt_senha1" name="txt_senha1" class="form-control" required>
                                     <label class="control-label" id="erro_senha">As senhas não coincidem!</label>
+                                    <label class="control-label" id="erro_senha2">A senha precisa ter pelo menos 8 caracteres!</label>
+
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -89,7 +94,7 @@
                         <div class="row">    
                             <div class="col-md-12">
                                 <label class="label-form-cadastro">Telefone:</label>
-                                <input type="text" name="txt_telefone" id="txt_telefone" class="form-control" maxlength="15" required> 
+                                <input type="text" name="txt_telefone" id="txt_telefone" class="form-control" required> 
                             </div>
                         </div> 
                             
@@ -175,17 +180,24 @@
         </div> <!-- /container -->
          
     <script> 
-
+    var chk_email = false;
+    var chk_senha = false;
     function verifica_senha(){
-        if($('#txt_senha1').val() != $('#txt_senha2').val()){
-                $('#div_senha').addClass('has-error');
-                $('#erro_senha').show();
-                return false;
-            }else{
-                $('#div_senha').removeClass('has-error');
-                $('#erro_senha').hide();
-                return true;
-            }
+        if($('#txt_senha1').val().length < 8){
+            $('#div_senha').addClass('has-error');
+            $('#erro_senha2').show();
+            chk_senha = false;
+        }else if($('#txt_senha1').val() != $('#txt_senha2').val()){
+            $('#div_senha').addClass('has-error');
+            $('#erro_senha').show();
+            $('#erro_senha2').hide();
+            chk_senha = false;
+        }else{
+            $('#div_senha').removeClass('has-error');
+            $('#erro_senha').hide();
+            $('#erro_senha2').hide();
+            chk_senha = true;
+        }
     }
 
     $('#txt_senha1').on('input', function(){
@@ -196,35 +208,7 @@
         verifica_senha();
     });
 
-    var email_ok = false;
-
-    $('#form_login').submit(function(){
-        if($('#txt_nome_instituicao').val() == "" 
-        || $('#txt_email').val() == "" || 
-        email_ok == false
-        || $('#txt_senha1').val() == "" 
-        || $('#txt_senha2').val() == "" 
-        || $('#txt_documento').val() == "" 
-        || $('#txt_telefone').val() == "" 
-        || $('#txt_logradouro').val() == "" 
-        || $('#txt_numero').val() == "" 
-        || $('#txt_bairro').val() == "" 
-        || $('#txt_cep').val() == "" 
-        || $('#txt_cidade').val() == "" 
-        || $('#txt_pais').val() == ""){
-            if($('#txt_email').val() == "" || email_ok == false){
-                $('html,body').animate({scrollTop:$('#email').offset().top},'fast');
-            }
-            return false;
-        }else if(verifica_senha() == false){
-            $('html,body').animate({scrollTop:$('#senha').offset().top},'fast');
-            return false;
-        }else{
-            return true;
-        }
-    });
-
-    $('#txt_email').on('input', function(){
+     function testaEmail(){
         var x = $('#txt_email').val();
         var atpos = x.indexOf("@");
         var dotpos = x.lastIndexOf(".");
@@ -235,13 +219,13 @@
                 $('#email_valido').addClass('sr-only');
                 $('#email_invalido').removeClass('sr-only');
                 $('#div_email').addClass('has-error');
-                email_ok = false;
+                chk_email = false;
             }else{                                          //É um email
                 var dataString = "txt_email="+$("#txt_email").val();
 
                 $.ajax({
                     type: "POST",
-                    url: "chk_email.php",
+                    url: "scripts/chk_email.php",
                     data: dataString,
                     dataType: "json",
                     success:function(data){
@@ -251,14 +235,14 @@
                             $('#div_email').addClass('has-success');
                             $('#div_email').removeClass('has-error');
                             $('#email_invalido').addClass('sr-only');
-                            email_ok = true;
+                            chk_email = true;
                         }else{
                             $('#email_uso').removeClass('sr-only');
                             $('#email_valido').addClass('sr-only');
                             $('#div_email').addClass('has-error');
                             $('#div_email').removeClass('has-success');
                             $('#email_invalido').addClass('sr-only');
-                            email_ok = false;
+                            chk_email = false;
                         }
                     }
                 });
@@ -269,14 +253,17 @@
             $('#email_invalido').addClass('sr-only');
             $('#div_email').removeClass('has-success');
             $('#div_email').removeClass('has-error');
+            chk_email = false;
         }
+    }
+
+    $('#txt_email').on('input', function(){
+        testaEmail();
     });
 
-    $(document).ready(function(){
-        $('#txt_telefone').mask("(99) 99999999?9");
-    });
-
-    $(document).ready(function(){                           
+    $(document).ready(function(){   
+        //Seta a mascara do campo Telefone    
+        $('#txt_telefone').mask("(99) 99999999?9");                    
         //Seta a mascara padrão do campo documento como CNPJ
         $("#txt_documento").mask("99.999.999/9999-99");
         
@@ -291,6 +278,20 @@
             }
         });
         
+    });
+
+    $('#form_cadastro').submit(function(){
+        testaEmail()
+        verifica_senha();
+        if(chk_email == false){
+             $('html,body').animate({scrollTop:$('#div_email').offset().top},'fast');
+             return false;
+        }else if(chk_senha == false){
+            $('html,body').animate({scrollTop:$('#div_senha').offset().top},'fast');
+            return false;
+        }else{
+            return true;
+        }
     });
     </script>
 

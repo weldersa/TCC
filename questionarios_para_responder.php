@@ -1,7 +1,7 @@
 <!--
 DATA: 03/05/16    
-ARQUIVO: meus_questionarios.php
-DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
+ARQUIVO: questionarios_para_responder.php
+DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder.
 -->
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
 	// Inicia a Sessão
 	session_start();
     
-	if($_SESSION["user_tipo"] != "P"){
+	if($_SESSION["user_tipo"] != "A"){
         header('location: permission_denied.php'); 
     }
 
@@ -43,15 +43,12 @@ DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
 					<div class="col-md-12 col-xs-12">
 						<center>
                         <div id="rb_tipo_pergunta" class="btn-group" data-toggle="buttons">
-							<label id="lbl_todos" class="btn btn-primary active">
-								<input type="radio" name="status_questionario" value="todos" id="cbx_todosQuests" autocomplete="off" checked="checked">Todos
+							<label id="lbl_responder" class="btn btn-primary active">
+								<input type="radio" name="questionarios_responder" value="todos" id="cbx_todosQuests" autocomplete="off" checked="checked">Disponíveis
 							</label>
-							<label id="lbl_aplicados" class="btn btn-primary">
-								<input type="radio" name="status_questionario" value="aplicados" id="cbx_questsAplicados" autocomplete="off">Aplicados
+							<label id="lbl_respondidos" class="btn btn-primary">
+								<input type="radio" name="questionarios_respondidos" value="aplicados" id="cbx_questsAplicados" autocomplete="off">Respondidos
 							</label> 
-							<label id="lbl_naoAplicados" class="btn btn-primary">
-								<input type="radio" name="status_questionario" value="nao_aplicados" id="cbx_questsNaoAplicados" autocomplete="off">Não Aplicados
-							</label>
 						</div>
 						</center>
                     </div>
@@ -71,8 +68,7 @@ DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
         
         <script> 
             //Muda o Link Ativo no Menu lateral
-            $("#meus_questionarios").addClass("active");
-            $("#opcoes_questionario").collapse("show");
+            $("#responderQuestionarios").addClass("active");
             $("#teste").addClass("active");  
             $("#home").removeClass("active");
 
@@ -85,26 +81,23 @@ DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
                     success: function(retorno){
 						if(retorno == 0){
 							linhas += '<div class="panel-heading div_panel">';
-								
+							
 								switch(url){
-									case "todosQuestionarios.php":
-										linhas += "<span id='span_sem_quests'>Não há questionários criados</span>";
+									case "questsParaResponder.php":
+										linhas += "<span id='span_sem_quests'>Não há questionários disponíveis para responder</span>";
 										break;
-									case "questionariosAplicados.php":
-										linhas += "<span id='span_sem_quests'>Não há questionários aplicados</span>";
-										break;
-									case "questionariosNaoAplicados.php":
-										linhas += "<span id='span_sem_quests'>Não existem questionários criados ou todos estão aplicados</span>";
+									case "questsRespondidos.php":
+										linhas += "<span id='span_sem_quests'>Ainda não respondeu nenhum questionário</span>";
 										break;
 								}
 
-							linhas += '</div>';			
-                            	
-                            
+							linhas += '</div>';	
 
 							$("#panel_questionario").empty();
 							$("#panel_questionario").html(linhas);
+
 						}else{
+							
 							var contador = 1;
 							retorno.forEach(function(item){
 								//Cabeçalho do Panel
@@ -158,25 +151,15 @@ DESCRIÇÃO: Pagina que lista questionários criados pelo professor.
 			}         
 
 			$(document).ready(function(){
-				apresentaQuestionarios("todosQuestionarios.php");
+				apresentaQuestionarios("questsParaResponder.php");
 			});
 
-			$("#lbl_todos").click(function(){
-				apresentaQuestionarios("todosQuestionarios.php");
+			$("#lbl_responder").click(function(){
+				apresentaQuestionarios("questsParaResponder.php");
 			});
 
-			$("#lbl_aplicados").click(function(){
-				apresentaQuestionarios("questionariosAplicados.php");
-			});
-
-			$("#lbl_naoAplicados").click(function(){
-				apresentaQuestionarios("questionariosNaoAplicados.php");
-			});
-
-			$("#panel_questionario").delegate('.btn-excluir', 'click', function(){
-				alert("clicou em excluir.");
-				//$(this).parents('form:first').attr("action", "");
-				$(this).parents('form:first').submit();
+			$("#lbl_respondidos").click(function(){
+				apresentaQuestionarios("questsRespondidos.php");
 			});
 
 			$("#panel_questionario").delegate('.btn-aplicar', 'click', function(){
