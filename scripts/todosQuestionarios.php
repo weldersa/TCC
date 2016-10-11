@@ -5,14 +5,10 @@
 	//Inicia a seção
 	session_start();
 
-	//Data e hora atual
-    date_default_timezone_set("America/Sao_Paulo");
-    $dataAtual = date('Y-m-d H:i:s');
-
 	$conexao = new Conexao();
 	$questionarios = array();
 	$contador = 0; //Serve para contar execução do while
-	$query = "SELECT * FROM questionarios WHERE quest_professor='".$_SESSION["user_email"]."';";
+	$query = "SELECT * FROM questionarios INNER JOIN materias ON questionarios.quest_materia=materias.materia_codigo WHERE quest_professor='".$_SESSION["user_email"]."';";
 
 	$resultado = $conexao->executaComando($query);
 
@@ -22,7 +18,7 @@
 				"quest_codigo" => $linha["quest_codigo"],
 				"quest_nome" => $linha["quest_nome"],
 				"quest_professor" => $linha["quest_professor"],
-				"quest_materia" => $linha["quest_materia"],
+				"quest_materia" => $linha["materia_nome"],
 				"quest_numPerguntas" => $linha["quest_numPerguntas"],
 				"quest_tempo" => $linha["quest_tempo"],
 				"quest_visualizar_resposta" => $linha["quest_visualizar_resposta"],

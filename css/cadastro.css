@@ -44,7 +44,7 @@ body {
     margin-top: 5px;
 }
 
-#erro_senha{
+#erro_senha, #erro_senha2{
     display: none;
 }
 

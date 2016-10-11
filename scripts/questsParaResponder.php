@@ -5,18 +5,16 @@
 	//Inicia a seção
 	session_start();
 
-	//Data e hora atual
-    date_default_timezone_set("America/Sao_Paulo");
-    $dataAtual = date('Y-m-d H:i:s');
-	//$dataAtual = "2016-08-13 18:04:23"; - Só pra teste
-
 	$conexao = new Conexao();
 	$questionarios = array();
-	$contador = 0; //Serve para contar execução do while
+
+	//Data e hora atual
+	date_default_timezone_set("America/Sao_Paulo");
+    $dataAtual = date('Y-m-d H:i:s');
 
 
 	//Seleciona todos os questionários criados.
-	$query = "SELECT * FROM questionarios INNER JOIN materias ON questionarios.quest_materia=materias.materia_codigo WHERE quest_professor='".$_SESSION["user_email"]."';";
+	$query = "SELECT * FROM questionario_turma WHERE turma_codigo = ".$_SESSION["user_instituicao"]." AND data_fim > '".$dataAtual."';";
 	$todosQuestionarios = $conexao->executaComando($query);
 
 	if(mysqli_num_rows($todosQuestionarios) != 0){

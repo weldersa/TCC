@@ -75,6 +75,7 @@ create table questionarios(
     quest_materia int(10) not null,
     quest_numPerguntas int(3) not null,
     quest_tempo int(3),
+    quest_dataCriacao date not null,
     quest_visualizar_resposta boolean not null,
     quest_randomiza_perguntas boolean not null,
     quest_necessita_correcao boolean not null,

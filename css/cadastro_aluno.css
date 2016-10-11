@@ -1,0 +1,7 @@
+.label_aviso{
+    margin-top: 0px;
+}
+
+#erro_senha, #erro_senha2{
+    display: none;
+}

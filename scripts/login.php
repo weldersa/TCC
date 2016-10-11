@@ -33,6 +33,9 @@
                 $_SESSION['user_instituicao'] = $linha[$tipo.'_instituicao'];
                 $_SESSION['user_nome'] = $usuario['user_nome']." ".$linha[$tipo.'_sobrenome'];
             }else{
+                $resultado2 = $conexao->executaComando('SELECT inst_codigo FROM instituicoes WHERE inst_email="'.$_POST['email'].'";');
+                $linha2 = mysqli_fetch_array($resultado2, MYSQLI_ASSOC);
+                $_SESSION['inst_codigo'] = $linha2['inst_codigo'];
                 $_SESSION['user_nome'] = $usuario['user_nome'];
             }
 
