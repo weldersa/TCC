@@ -37,7 +37,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
 					</div>
 				</div>		
 
-				<form id="cadastrar_aluno" action="scripts/cadastrando_aluno.php" method="POST">		
+				<form id="cadastrar_aluno" action="cadastrando_aluno.php" method="POST">		
 					<div class="row">
 						<div class="col-md-6">
 							<label for="txt_aluno_nome">Nome:</label>

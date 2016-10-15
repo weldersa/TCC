@@ -131,7 +131,6 @@ DESCRIÇÃO: Classe modelo - Instituição
             $conexao = new Conexao();
 			$query1 = "INSERT INTO usuarios VALUES ('{$this->email}', '{$this->senha}', '{$this->nome}', 'I');";
 			$query2 = "INSERT INTO instituicoes (inst_email, inst_doc_tipo, inst_num_doc, inst_end_rua, inst_end_numero, inst_cep, inst_bairro, inst_cidade, inst_estado, inst_pais, inst_telefone) VALUES ('{$this->email}', '{$this->documento_tipo}', '{$this->numero_documento}', '{$this->rua}', '{$this->numero}', '{$this->cep}', '{$this->bairro}', '{$this->cidade}', '{$this->estado}', '{$this->pais}', '{$this->telefone}');";
-           // return $conexao->executaComandos($query1.$query2);
 			return $conexao->executaComandos($query1.$query2);
         }
         

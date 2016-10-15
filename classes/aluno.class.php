@@ -89,7 +89,7 @@ DESCRIÇÃO: Classe modelo - Aluno
             $conexao = new Conexao();
 			$query1 = "INSERT INTO usuarios VALUES ('{$this->email}', '{$this->senha}', '{$this->nome}', 'A');";
 			$query2 = "INSERT INTO alunos (aluno_email, aluno_sobrenome, aluno_ra, aluno_rg, aluno_cpf, aluno_instituicao) VALUES ('{$this->email}', '{$this->sobrenome}', '{$this->ra}', '{$this->rg}', '{$this->cpf}', '{$this->instituicao}');";
-			$conexao->executaComandos($query1.$query2);
+			return ($conexao->executaComandos($query1.$query2));
         }
         
         //Função para Deletar Alunos no Banco de Dados
