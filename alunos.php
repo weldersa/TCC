@@ -53,7 +53,7 @@ include 'classes/conexao.class.php';
 							</thead>
 							<tbody>
 								<?php
-									$query = ("SELECT usuarios.user_email, usuarios.user_nome, alunos.aluno_sobrenome, alunos.aluno_ra, alunos.aluno_rg, alunos.aluno_cpf FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email;");
+									$query = ("SELECT usuarios.user_email, usuarios.user_nome, alunos.aluno_sobrenome, alunos.aluno_ra, alunos.aluno_rg, alunos.aluno_cpf, alunos.aluno_instituicao FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email WHERE aluno_instituicao = $_SESSION[inst_codigo];");
 									$conexao = new Conexao();
 									$resultado = $conexao->executaComando($query) or die("Erro ao Buscar Alunos.");
 									if($resultado){

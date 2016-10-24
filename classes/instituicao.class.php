@@ -127,7 +127,7 @@ DESCRIÇÃO: Classe modelo - Instituição
 		//Métodos
 		//Função para Inserir Instituições no Banco de Dados
         public function insertInst(){
-            require_once 'classes/conexao.class.php';
+            require_once 'conexao.class.php';
             $conexao = new Conexao();
 			$query1 = "INSERT INTO usuarios VALUES ('{$this->email}', '{$this->senha}', '{$this->nome}', 'I');";
 			$query2 = "INSERT INTO instituicoes (inst_email, inst_doc_tipo, inst_num_doc, inst_end_rua, inst_end_numero, inst_cep, inst_bairro, inst_cidade, inst_estado, inst_pais, inst_telefone) VALUES ('{$this->email}', '{$this->documento_tipo}', '{$this->numero_documento}', '{$this->rua}', '{$this->numero}', '{$this->cep}', '{$this->bairro}', '{$this->cidade}', '{$this->estado}', '{$this->pais}', '{$this->telefone}');";
@@ -136,21 +136,21 @@ DESCRIÇÃO: Classe modelo - Instituição
         
         //Função para Deletar Instituições no Banco de Dados
         public function deleteInst($codigo){
-            require_once 'classes/conexao.class.php';
+            require_once 'conexao.class.php';
             $conexao = new Conexao();
             $conexao->executaComando("DELETE FROM instituicoes WHERE inst_codigo=".$codigo.";");
         }
         
         //Função para Consultar Instituição no Banco de Dados
         public function consultaInst($codigo){
-            require_once 'classes/conexao.class.php';
+            require_once 'conexao.class.php';
             $conexao = new Conexao();
             return $conexao->executaComando("SELECT * FROM instituicoes WHERE inst_codigo=".$codigo.";");
         }
         
         //Função para Alterar Instituição no Banco de Dados
         public function alteraInst($codigo, $nome, $rua, $numero, $cep, $bairro, $cidade, $estado, $pais, $telefone, $email, $senha, $documento_tipo, $numero_documento){
-            require_once 'classes/conexao.class.php';
+            require_once 'conexao.class.php';
             $conexao = new Conexao();
             $conexao->executaComando("UPDATE instituicoes SET inst_nome='".$nome."', inst_end_rua='".$rua."', inst_end_numero='".$numero."',
                 inst_cep='".$cep."', inst_bairro='".$bairro."', inst_cidade='".$cidade."', inst_estado='".$estado."', inst_pais='".inst_pais."',inst_telefone='".$telefone."', inst_senha='".$senha."', inst_doc_tipo='".$documento_tipo."','".$numero_documento."' WHERE inst_codigo=".$codigo.";");
