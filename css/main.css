@@ -524,3 +524,10 @@ textarea{
 #span_sem_quests{
   font-size: 12pt;
 }
+
+
+
+.tabela_tr:hover{
+  background-color: #bababa;
+  cursor: pointer;
+}

@@ -24,8 +24,6 @@ include 'classes/conexao.class.php';
     <head>
         <title>Alunos</title>
         <?PHP include 'imports.html'; ?>
-		<link rel="stylesheet" href="css/cadastro_aluno.css">
-		<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
     </head>
     <body>        
         <?PHP include 'menu.php'; ?>
@@ -36,66 +34,63 @@ include 'classes/conexao.class.php';
                     <h3>Alunos</h3>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-12">
-                    <input type="button" id="btn_cadastrar_aluno" class="btn btn-success" value="Cadastrar Aluno">
-                </div>
+
+					<br>
+
+					<div class="table-responsive">
+						<table id="tabela" class="table">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Email</th>
+									<th>RA</th>
+									<th>RG</th>
+									<th>CPF</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$query = ("SELECT usuarios.user_email, usuarios.user_nome, alunos.aluno_sobrenome, alunos.aluno_ra, alunos.aluno_rg, alunos.aluno_cpf FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email;");
+									$conexao = new Conexao();
+									$resultado = $conexao->executaComando($query) or die("Erro ao Buscar Alunos.");
+									if($resultado){
+										while($linha = mysqli_fetch_array($resultado)){
+											$email = $linha['user_email'];
+											echo "
+												<tr id='tabela' class='tabela_tr clickable-row' data-href='info_aluno.php?email=$email'>
+													<td>$linha[user_nome] $linha[aluno_sobrenome]</td>
+													<td>$linha[user_email]</td>
+													<td>$linha[aluno_ra]</td>
+													<td>$linha[aluno_rg]</td>
+													<td>$linha[aluno_cpf]</td>
+													<input type='hidden' value='$linha[user_email]' name='email'/>
+												</tr>";
+										}
+									}
+								?>
+							</tbody>
+						</table>
+					</div> <!-- FIM DIV TABLE -->
+                </div> <!-- FIM DIV COL -->
             </div>
-            <div class="row">
+			<div class="row">
                 <div class="col-md-12">
-
-                <br>
-
-                <div class="table_header">
-                    <!-- As tags estão assim para evitar espaço entre as divs -->
-                    <div id="header_enunciado">Enunciado</div
-                    ><div id="header_tipo">Tipo</div
-                    ><div id="header_peso">Peso</div>
-                </div>
-
-                <div class="table_body">
-                    <div id="body_nenhuma">Nunhuma pergunta encontrada!</div>
-                    <table id="tabela_perguntas">
-                        <?php
-                                
-                                $query = ("SELECT usuarios.user_email, usuarios.user_nome, alunos.aluno_sobrenome, alunos.aluno_ra, alunos.aluno_rg, alunos.aluno_cpf FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email;");
-                                $conexao = new Conexao();
-                                $resultado = $conexao->executaComando($query) or die("Erro ao Buscar Alunos.");
-                                if($resultado){
-                                    while($linha = mysqli_fetch_array($resultado)){
-                                        echo "<tr><td>$linha[user_nome] $linha[aluno_sobrenome]</td><td>$linha[user_email]</td><td>$linha[aluno_ra]</td><td>$linha[aluno_rg]</td><td>$linha[aluno_cpf]</td></tr>";
-                                    }
-                                }
-                            ?>
-                    </table>
-                </div>
-
-                    <table class="table">
-                        <thread>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>RA</th>
-                                <th>RG</th>
-                                <th>CPF</th>
-                            </tr>
-                        </thread>
-                        <tbody>
-                            <?php
-                                
-                                $query = ("SELECT usuarios.user_email, usuarios.user_nome, alunos.aluno_sobrenome, alunos.aluno_ra, alunos.aluno_rg, alunos.aluno_cpf FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email;");
-                                $conexao = new Conexao();
-                                $resultado = $conexao->executaComando($query) or die("Erro ao Buscar Alunos.");
-                                if($resultado){
-                                    while($linha = mysqli_fetch_array($resultado)){
-                                        echo "<tr><td>$linha[user_nome] $linha[aluno_sobrenome]</td><td>$linha[user_email]</td><td>$linha[aluno_ra]</td><td>$linha[aluno_rg]</td><td>$linha[aluno_cpf]</td></tr>";
-                                    }
-                                }
-                            ?>
-                        </tbody>
-                    </table>
+                    <input type="button" id="btn_cadastrar_aluno" class="btn btn-success pull-right" value="Cadastrar Aluno">
                 </div>
             </div>
         </div> <!-- Fim do Conteúdo da página -->
     </body>
-</html
+	<script>
+		$('#btn_cadastrar_aluno').click(function(){
+			window.location.href = "cadastro_aluno.php";
+		});
+
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+
+	</script>
+</html>

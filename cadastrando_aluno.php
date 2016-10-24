@@ -93,7 +93,7 @@ $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
                     }
                     ?>
 
-                    <input type="button" id="btn_meus_questionarios" class="btn btn-primary" value= "Ver Alunos"/>
+                    <input type="button" id="btn_ver_alunos" class="btn btn-primary" value= "Ver Alunos"/>
                     <input type="button" id="btn_novo_questionario" class="btn btn-success" value= "Cadastrar Aluno"/>
                 </div>
             </div>
@@ -103,8 +103,8 @@ $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
             $("#btn_voltar").click(function(){
                 javascript:window.history.go(-1)
             });
-            $("#btn_meus_questionarios").click(function(){
-                window.location.href = "meus_questionarios.php";
+            $("#btn_ver_alunos").click(function(){
+                window.location.href = "alunos.php";
             });
 
             $("#btn_novo_questionario").click(function(){
