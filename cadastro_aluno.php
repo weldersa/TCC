@@ -23,7 +23,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
     <head>
         <title>Cadastro de Alunos</title>
         <?PHP include 'imports.html'; ?>
-		<link rel="stylesheet" href="css/cadastro_aluno.css">
+		<link rel="stylesheet" href="css/cadastro_aluno_professor.css">
 		<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
     </head>
     <body>        
@@ -78,7 +78,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
 					</div>
 					<div id="div_aluno_email" class="row">
 						<div class="col-md-12">
-							<label for="txt_aluno_email">Email:</label>
+							<label for="txt_email">Email:</label>
 							<input type="text" class="form-control" name="txt_email" id="txt_email" required>
 							<label id="email_uso" class="label_aviso sr-only control-label">Email em uso!</label>
 							<label id="email_valido" class="label_aviso sr-only control-label">Email disponível</label>
@@ -89,13 +89,13 @@ DESCRIÇÃO: Página de início, primeira página após o login
 					<div id="div_senha">
 						<div class="row">
 							<div class="col-md-6">
-								<label for="txt_aluno_senha">Senha:</label>
+								<label for="txt_senha1">Senha:</label>
 								<input type="password" class="form-control" name="txt_senha1" id="txt_senha1" required>
 								<label class="label_aviso control-label" id="erro_senha">As senhas não coincidem!</label>
 								<label class="label_aviso control-label" id="erro_senha2">A senha precisa ter pelo menos 8 caracteres!</label>
 							</div>
 							<div class="col-md-6">
-								<label for="txt_aluno_confirma-senha">Confirme a Senha:</label>
+								<label for="txt_senha2">Confirme a Senha:</label>
 								<input type="password" class="form-control" name="txt_senha2" id="txt_senha2" required>
 							</div>
 						</div>

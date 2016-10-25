@@ -48,6 +48,7 @@ $resultado2 = $conexao->executaComando("SELECT turmas.turma_codigo , turmas.turm
             <div class="row">
 				<div class="col-md-12">
 					<center><h3> <?php echo $nome; ?> </h3><center>
+					<center><h5> Aluno </h5></center>
 				</div> <!-- DIV COL -->
 			<div> <!-- DIV ROW -->
 
@@ -86,19 +87,31 @@ $resultado2 = $conexao->executaComando("SELECT turmas.turma_codigo , turmas.turm
 						<div class="modal-body">
 						<p>Escolha a turma para adicionar o aluno:</p><br>
 						<form method="POST" action="#">
-							<select name="turma" class="form-control" required>
-								<option value="">--- Escolha uma Turma ---</option>
-								<?php
-									$resultado3 = $conexao->executaComando("SELECT * FROM turmas;");
-									while($linha = mysqli_fetch_array($resultado3)){
-										echo "<option value='$linha[turma_codigo]'>$linha[turma_nome]</option>";
-									} 
+							<?php 
+							$resultado3 = $conexao->executaComando("SELECT * FROM turmas;"); 
+							if(mysqli_num_rows($resultado3) == 0){
+								echo "Nenhuma turma encontrada, cadastre uma turma para inserir alunos.";
+							}else{
 								?>
-							</select>
-							
+								<select name="turma" class="form-control" required>
+									<option value="">--- Escolha Uma Turma ---</option>
+									<?php
+										while($linha = mysqli_fetch_array($resultado3)){
+											echo "<option value='$linha[turma_codigo]'>$linha[turma_nome]</option>";
+										}
+									?>
+								</select>
+							<?php } ?>
 						</div>
 						<div class="modal-footer">
-						<button type="submit" class="btn btn-success">Adicionar</button>
+
+						<?php
+						if(mysqli_num_rows($resultado3) == 0){
+							echo '<button type="submit" class="btn btn-primary">Cadastrar Turma</button>';
+						}else{
+							echo '<button type="submit" class="btn btn-success">Adicionar</button>';
+						}
+						?>
 						</form>
 						</div>
 					</div>
