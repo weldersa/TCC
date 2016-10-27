@@ -38,7 +38,7 @@ $resultado2 = $conexao->executaComando("SELECT turmas.turma_codigo , turmas.turm
 
 <html lang="pt-BR">
     <head>
-        <title>Alunos</title>
+        <title>Informações do Aluno</title>
         <?PHP include 'imports.html'; ?>
     </head>
     <body>        

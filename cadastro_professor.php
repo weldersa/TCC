@@ -36,15 +36,15 @@ DESCRIÇÃO: Página de início, primeira página após o login
 						 <h3>Cadastrar Professor</h3>
 					</div>
 				</div>	
-				<form id="cadastrar_aluno" action="cadastrando_aluno.php" method="POST">				
+				<form id="cadastrar_aluno" action="cadastrando_professor.php" method="POST">				
 					<div class="row">
 						<div class="col-md-6">
 							<label for="txt_professor_nome">Nome:</label>
-							<input type="text" class="form-control" id="txt_professor_nome">
+							<input type="text" class="form-control" name="txt_professor_nome" id="txt_professor_nome">
 						</div>
 						<div class="col-md-6">
 							<label for="txt_aluno_sobrenome">Sobrenome:</label>
-							<input type="text" class="form-control" id="txt_professor_sobrenome">
+							<input type="text" class="form-control" name="txt_professor_sobrenome" id="txt_professor_sobrenome">
 						</div>
 					</div>
 					<div id="div_professor_email" class="row">
@@ -73,11 +73,11 @@ DESCRIÇÃO: Página de início, primeira página após o login
 					<div class="row">
 						<div class="col-md-6">
 							<label for="txt_professor_cpf">CPF:</label>
-							<input type="text" class="form-control" id="txt_professor_cpf">
+							<input type="text" class="form-control" name="txt_professor_cpf" id="txt_professor_cpf">
 						</div>
 						<div class="col-md-6">
 							<label for="txt_professor_rg">RG:</label>
-							<input type="text" class="form-control" id="txt_professor_rg">
+							<input type="text" class="form-control" name="txt_professor_rg" id="txt_professor_rg">
 						</div>
 					</div>
 					<div class="row">

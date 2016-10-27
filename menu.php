@@ -45,7 +45,7 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 									</ul>
 								<li data-toggle="collapse" data-target="#opcoes_admin"><a href="#">Admin</a></li>
 									<ul class="collapse" id="opcoes_admin">
-										<li class="submenu" id="turmas"><a href="#">Turmas</a></li>                   
+										<li class="submenu" id="turmas"><a href="turmas.php">Turmas</a></li>                   
 										<li class="submenu" id="professores"><a href="professores.php">Professores</a></li>
 										<li class="submenu" id="alunos"><a href="alunos.php">Alunos</a></li>
 									</ul>

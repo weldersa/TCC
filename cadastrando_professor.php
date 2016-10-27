@@ -24,7 +24,7 @@ $query = ("SELECT user_email FROM usuarios WHERE user_email = '{$email}';");
 $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){           //Se não recebeu dados, não insere no banco    
-        if(trim($nome) == "" || trim($sobrenome) == "" || trim($email) == "" || trim($senha1) == "" || trim($senha2) == "" || trim($cpf) == "" || trim($rg) == "" || trim($ra) == ""){
+        if(trim($nome) == "" || trim($sobrenome) == "" || trim($email) == "" || trim($senha1) == "" || trim($senha2) == "" || trim($cpf) == "" || trim($rg) == ""){
             echo "Nenhum dado recebido!";
         }else{
             if(mysqli_num_rows($resultado) == 0){
@@ -92,7 +92,7 @@ $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
                     ?>
 
                     <input type="button" id="btn_ver_professores" class="btn btn-primary" value= "Ver Professores"/>
-                    <input type="button" id="btn_novo_questionario" class="btn btn-success" value= "Cadastrar Professor"/>
+                    <input type="button" id="btn_cadastrar_professor" class="btn btn-success" value= "Cadastrar Professor"/>
                 </div>
             </div>
         </div> <!-- Fim do Conteúdo da página -->
@@ -105,8 +105,8 @@ $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
                 window.location.href = "professores.php";
             });
 
-            $("#btn_novo_questionario").click(function(){
-                window.location.href = "criar_questionario.php";
+            $("#btn_cadastrar_professor").click(function(){
+                window.location.href = "cadastro_professor.php";
             });
 
             $("#home").addClass("active");

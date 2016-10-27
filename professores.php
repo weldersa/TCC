@@ -70,13 +70,13 @@ include 'classes/conexao.class.php';
             </div>
 			<div class="row">
                 <div class="col-md-12">
-                    <input type="button" id="btn_cadastrar_aluno" class="btn btn-success pull-right" value="Cadastrar Professor">
+                    <input type="button" id="btn_cadastrar_professor" class="btn btn-success pull-right" value="Cadastrar Professor">
                 </div>
             </div>
         </div> <!-- Fim do Conteúdo da página -->
     </body>
 	<script>
-		$('#btn_cadastrar_aluno').click(function(){
+		$('#btn_cadastrar_professor').click(function(){
 			window.location.href = "cadastro_professor.php";
 		});
 
