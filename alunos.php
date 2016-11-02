@@ -41,7 +41,7 @@ include 'classes/conexao.class.php';
 					<br>
 
 					<div class="table-responsive">
-						<table id="tabela" class="table">
+						<table id="tabela" class="table tablesorter">
 							<thead>
 								<tr>
 									<th>Nome</th>
@@ -91,6 +91,8 @@ include 'classes/conexao.class.php';
 		$(".clickable-row").click(function() {
 			window.document.location = $(this).data("href");
 		});
+
+		$("#tabela").tablesorter();
 
 	</script>
 </html>

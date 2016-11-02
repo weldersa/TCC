@@ -55,7 +55,7 @@ $resultado = $conexao->executaComando($query) or die("Erro ao checar email.");
 
 <html lang="pt-BR">
     <head>
-        <title>Aluno Cadastrado</title>
+        <title>Cadastrando Aluno</title>
         <?PHP include 'imports.html'; ?>
     </head>
     <body>        

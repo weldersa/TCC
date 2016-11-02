@@ -19,7 +19,11 @@ DESCRIÇÃO: Página de sumario de Questionários
         header('location: logout.php');
     }
     
+$conexao = new Conexao();
 
+$resultado = $conexao->executaComando("SELECT * FROM turmas");
+
+//$resultado = $conexao->executaComando("SELECT usuarios.user_nome, usuarios.user_email, alunos.aluno_sobrenome, aluno_turma.aluno_email, aluno_turma.turma_codigo, turmas.turma_nome FROM usuarios INNER JOIN alunos ON alunos.aluno_email=usuarios.user_email INNER JOIN aluno_turma ON aluno_turma.aluno_email=usuarios.user_email INNER JOIN turmas ON turmas.turma_codigo=aluno_turma.turma_codigo");
 
 ?>
 
@@ -32,36 +36,20 @@ DESCRIÇÃO: Página de sumario de Questionários
         <?PHP 
             include 'menu.php';
             //Atribui o número de perguntas já criadas para que possa ser usado no javascript
-            echo '<input type="hidden" name="txtNumPergunta" id="txtNumPergunta" value="'.$_SESSION['numPerguntas'].'">'; 
         ?>
         <div class="container">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
-                        <?PHP
-                            echo "<h3>".$questionario->getNome()."</h3>";
-                            /*
-                            echo "<br><h4> Professor: ".$questionario->getProfessor();
-                            echo "<br>Matéria: ".$questionario->getMateria();
-                            echo "<br>Tempo para Responder: ".$questionario->getTempo();
-                            echo "<br>Data de Início: ".$questionario->getDataInicio();
-                            echo "<br>Data de Término: ".$questionario->getDataFim()."</h4>";
-                            */
-                        ?>
-                    </div>
-                </div> <!-- Row End -->
-                <div class="row">
-                    <div class="col-md-12 col-xs-12">
                         <br>
-                        <h4>Perguntas:</h4>
-                        
+                        <h4>Turmas:</h4>
                     </div>
                 </div> <!-- Row End -->
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <div class="panel-group" id="panel_perguntas">
                             <?PHP  
-                                if($_SESSION["numPerguntas"] == 0){
+                                if(mysqli_num_rows($resultado) == 0){
                                     echo '
                                         <div class="panel panel-default">
                                             <div class="panel-heading div_panel">
@@ -70,15 +58,20 @@ DESCRIÇÃO: Página de sumario de Questionários
                                         </div>
                                     ';
                                 }else{
-                                    for ($i = 1; $i <= $_SESSION["numPerguntas"]; $i++){
+                                    while($linha = mysqli_fetch_array($resultado)){
+										$resultado2 = $conexao->executaComando("SELECT count(*) AS qtd_alunos from aluno_turma where turma_codigo = $linha[turma_codigo]");
+										$linha2 = mysqli_fetch_array($resultado2);
+										$qtd_alunos = $linha2['qtd_alunos'];
+										$resultado3 = $conexao->executaComando("SELECT usuarios.user_nome, alunos.aluno_sobrenome FROM usuarios INNER JOIN alunos ON usuarios.user_email=alunos.aluno_email INNER JOIN aluno_turma ON aluno_turma.aluno_email=usuarios.user_email WHERE aluno_turma.turma_codigo = '$linha[turma_codigo]'");
+
                                         echo "
                                             <div class='panel panel-default'>
                                                 <div class='panel-heading container-fluid'>
-                                                    <a class='panel-title' data-toggle='collapse' data-parent='#panel_perguntas' href='#colapse_0".$i."'>
+                                                    <a class='panel-title' data-toggle='collapse' data-parent='#panel_perguntas' href='#colapse_0".$linha['turma_codigo']."'>
                                                     <span class='span_link_panel'>
                                                         <div class='row'>
                                                             <div class='div_panel col-md-10 col-sm-10 col-xs-8'>               
-                                                                <span><b>Pergunta ".$perguntas[$i]->getNumPergunta().": <br></span> </b>".$perguntas[$i]->getEnunciado()."
+                                                                <span><b>".$linha['turma_nome']." <br></span> </b>Alunos: ".$qtd_alunos."<br>
                                                             </div>
                                                             <div id='div_panel_detalhes' class='div_panel col-md-2 col-sm-2 col-xs-4'>
                                                                 <span>Detalhes</span>
@@ -87,48 +80,27 @@ DESCRIÇÃO: Página de sumario de Questionários
                                                     </span>
                                                     </a>
                                                 </div>
-                                                <div id='colapse_0".$i."' class='panel-collapse collapse'>
-                                                    <div class='panel-body'>
-                                                        Número da Pergunta: ".$perguntas[$i]->getNumPergunta()."<br>
-                                                        Tipo da Pergunta: ".$perguntas[$i]->getTipo()."<br>";
+                                                <div id='colapse_0".$linha['turma_codigo']."' class='panel-collapse collapse'>
+                                                    <div class='panel-body'>";
                                                         
-                                                        if($perguntas[$i]->getNumAlternativas() == ""){
-                                                            echo "Número de Alternativas: 0 - Pergunta Dissertativa<br>";
+                                                        if($qtd_alunos == 0){
+                                                            echo "Essa turma não tem alunos cadastrados";
                                                         }else{
-                                                            echo "Número de Alternativas: ".$perguntas[$i]->getNumAlternativas()."<br><br>";
-                                                            
-                                                            for($j = 1; $j <= $perguntas[$i]->getNumAlternativas(); $j++){
-                                                                $alternativaAtual = $perguntas_alternativas[$i]->getAlternativa($j);
-                                                                if($alternativaAtual["correta"]){
-                                                                    $correta = "Correta";
-                                                                }else{
-                                                                    $correta = "Errada";
-                                                                }
-                                                                
-                                                                echo "Alternativa 0".$alternativaAtual["ordem"].": ".$alternativaAtual["texto"]." (".$correta.")<br>" ;
-                                                            }   
-                                                            
-                                                            echo "<br>";  
-                                                        }  
-                                                            
-                                                        if($perguntas[$i]->getImagem() == ""){
-                                                            echo "Caminho da Imagem: Sem Imagem<br>";
-                                                        }else{
-                                                            
-                                                        }                
-                                                        
-                                                        if($perguntas[$i]->getPeso() == ""){
-                                                            echo "Peso da Pergunta: Sem peso definido<br>";
-                                                        } else{
-                                                            echo "Peso da Pergunta: ".$perguntas[$i]->getPeso()."<br>";
+															while($linha3 = mysqli_fetch_array($resultado3)){
+																echo "$linha3[user_nome] $linha3[aluno_sobrenome]";
+																echo "<br>";  
+															}
                                                         }
-                                                        
-                                                        echo "Tags da Pergunta: ";
-                                                        print_r(array_values($perguntas[$i]->getTags()));               
-                                                        
                                         echo"                
+
+													<div class='botoes_questionarios pull-right'>
+														<button type='button' style='margin-right: 5px' class='btn btn-danger btn-excluir'>Excluir Turma</button>
+														<button type='button' style='margin-right: 5px' class='btn btn-primary btn-editar'>Editar Turma</button>
+														<button type='button' style='margin-right: 5px' class='btn btn-success btn-aplicar'>Adicionar Alunos</button>
+													</div>
                                                     </div>
-                                                </div>
+												</div>
+
                                             </div>
                                         "; 
                                     }
@@ -136,13 +108,10 @@ DESCRIÇÃO: Página de sumario de Questionários
                             ?>
                         </div>
                     </div>
-                </div> <!-- Row End -->                        
+                </div> <!-- Row End -->
                 <div class="row">
-                    <div class="col-md-12 col-xs-12">                      
-                        <div id="div_botoes_sumario">                                 
-                            <button class="btn btn-primary" id="btn_addPergunta">Adicionar Pergunta</button>                           
-                            <button type="submit" class="btn btn-success" id="btn_finalizaQuest">Continuar</button>
-                        </div>
+                    <div class="col-md-12">
+                        <input type="button" id="btn_cadastrar_turma" class="btn btn-success pull-right" value="Cadastrar Turma">
                     </div>
                 </div>
             </div>
@@ -156,6 +125,10 @@ DESCRIÇÃO: Página de sumario de Questionários
                 $("#btn_addPergunta").click(function(){
                     window.location.href = "criar_pergunta.php";
                 });
+
+                $("#btn_cadastrar_turma").click(function(){
+                    window.location.href = "cadastro_turma.php";
+                })
                 
                 $("#btn_finalizaQuest").click(function(){
                     if($("#txtNumPergunta").val() < 2){

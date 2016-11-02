@@ -49,7 +49,7 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 										<li class="submenu" id="professores"><a href="professores.php">Professores</a></li>
 										<li class="submenu" id="alunos"><a href="alunos.php">Alunos</a></li>
 									</ul>
-								<li><a href="#">Consultar Notas</a></li>
+								<li><a href="consultar_notas.php">Consultar Notas</a></li>
 								<li><a id="about" href="about.php">Sobre</a></li>
 							';
 							break;

@@ -35,7 +35,7 @@ include 'classes/conexao.class.php';
 					<br>
 
 					<div class="table-responsive">
-						<table id="tabela" class="table">
+						<table id="tabela" class="table tablesorter">
 							<thead>
 								<tr>
 									<th>Nome</th>

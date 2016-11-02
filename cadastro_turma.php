@@ -6,6 +6,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
 
 <!DOCTYPE html>
 <?php
+include "classes/conexao.class.php";
 	// Inicia a Sessão
 	session_start();
 
@@ -17,6 +18,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
     if(!isset($_SESSION['user_nome']) && empty($_SESSION['user_nome'])) {
         header('location: logout.php');
     }
+
 ?>
 
 <html lang="pt-BR">
@@ -29,6 +31,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
         
         <div class="container"> <!-- Onde vai ficar o conteúdo da página -->
           	<div class="container-fluid">
+			<form method="POST" action="cadastrando_turma.php">
 				<div class="row">
 					<div class="col-md-12">
 						 <h3>Cadastrar uma nova turma</h3>
@@ -37,7 +40,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
 				<div class="row">
 					<div class="col-md-12">
 						<label for="txt_aluno_nome">Nome da Turma:</label>
-						<input type="text" class="form-control" id="txt_aluno_nome">
+						<input type="text" class="form-control" name="txt_turma_nome" id="txt_turma_nome" required>
 					</div>
 				</div>
 				<div class="row">
@@ -46,6 +49,7 @@ DESCRIÇÃO: Página de início, primeira página após o login
 						<input type="submit" value="Cadastrar" class="btn btn-success pull-right">
 					</div>
 				</div>
+			</form>
 			</div> 
                       
         </div> <!-- Fim do Conteúdo da página -->
