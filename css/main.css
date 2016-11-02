@@ -438,7 +438,7 @@ textarea{
   color: green;
 }
 
-#div_busca_pergunta .form-control{
+#div_busca_pergunta .form-control, #div_busca_notas .form-control{
   width: 50%;
 }
 

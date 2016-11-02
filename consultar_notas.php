@@ -31,22 +31,35 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
         <div class="container"> <!-- Onde vai ficar o conteúdo da página -->
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Buscar notas por:</h3>
+					<?php
+						if($_SESSION['user_tipo'] == 'P'){
+							echo "<h3>Buscar notas:</h3>";
+						}
+						if($_SESSION['user_tipo'] == 'I'){
+							echo "<h3>Buscar notas:</h3>";
+						}
+						if($_SESSION['user_tipo'] == 'A'){
+							echo "<h3>Buscar notas:</h3>";
+						}
+					?>
 				</div>
 			</div> <!-- Row End -->
 			<div class="row">
 				<div class="col-md-12 col-xs-12">
 					<center>
-					<div id="rb_tipo_pergunta" class="btn-group" data-toggle="buttons">
-						<label id="lbl_alunos" class="btn btn-primary active">
-							<input type="radio" name="busca_alunos" value="alunos" id="cbx_alunos" autocomplete="off" checked="checked">Alunos
-						</label>
-						<label id="lbl_turmas" class="btn btn-primary">
-							<input type="radio" name="busca_turmas" value="turmas" id="cbx_turmas" autocomplete="off">Turmas
-						</label> 
-						<label id="lbl_questionarios" class="btn btn-primary">
-							<input type="radio" name="busca_questionarios" value="questionarios" id="cbx_questionarios" autocomplete="off">Questionários
-						</label>
+					<div id="buscar_notas" class="btn-group" data-toggle="buttons">
+						<div id="div_busca_notas" class="input-group">
+							<input type="text" id="txt_busca" class="form-control"/>
+							<select id="slc_opcaoBusca" name="slc_opcaoBusca" class="form-control">
+								<option>Questionário</option>
+								<option>Matéria</option>
+								<option>Aluno</option>
+								<option>Professor</option>
+							</select>
+							<span class="input-group-btn">
+								<button id="btn_buscar" class="btn btn-primary">Buscar</button>
+							</span>
+						</div>
 					</div>
 					</center>
 				</div>
@@ -54,7 +67,7 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 				<br>
 			<div class="row">
 				<div class="col-md-12">
-					<table id="tabela_notas" class="table tablesorter">
+					<table id="tabela_notas_alunos" class="table tablesorter">
 						<thead>
 							<th>Questionário</th>
 							<th>Professor</th>
@@ -76,6 +89,17 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
             $("#home").addClass("active");
             $("#criar_questionario").removeClass("active");    
 
+			$('#tabela_notas_alunos').tablesorter();
+
+			$(document).ready(function(){
+				notas_alunos();
+			});
+
+			$('#lbl_alunos').click(function(){
+				notas_alunos();
+			});
+
+			function notas_alunos(){
 				var linhas = "";
 				$.ajax({
 					type: "POST",
@@ -94,7 +118,6 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 									linhas += "<td>"+item['data_resposta']+"</td>";
 									linhas += "<td>"+item['nota_valor']+"</td>";
 								linhas += "</tr>";
-
 							});
 						
 						}
@@ -104,6 +127,7 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 
 					}
 				});
+			}
 
         </script>        
     </body>
