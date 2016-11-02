@@ -23,6 +23,10 @@ DESCRIÇÃO: Página de início, primeira página após o login
     if(!isset($_SESSION['user_nome']) && empty($_SESSION['user_nome'])) {
         header('location: logout.php');
     }
+
+    //Data e hora atual
+    date_default_timezone_set("America/Sao_Paulo");
+    $dataAtual = date('Y-m-d H:i:s');
     
     if(isset($_SESSION["questionario"])){
         
@@ -60,6 +64,8 @@ DESCRIÇÃO: Página de início, primeira página após o login
         if($questionario->getTempo() == ""){
             $questionario->setTempo(0);
         }    
+
+        $questionario->setDataCriacao($dataAtual);
 
         //Salva o questionário no banco e retorna o ID do mesmo para a variável $quest_codigo
         $quest_codigo = $questionario->insertQuest();
@@ -102,7 +108,8 @@ DESCRIÇÃO: Página de início, primeira página após o login
 
         //Limpa variáveis de ambiente
         unset($_SESSION["questionario"], $_SESSION["numPerguntas"], $_SESSION["perguntas"], $_SESSION["perguntas_alternativas"]);
-        
+    }else{
+        header('location: error.php');
     }    
 
 ?>

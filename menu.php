@@ -14,10 +14,9 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 								<li data-toggle="collapse" id="nav_questionarios" data-target="#opcoes_questionario"><a href="#">Questionários</a></li>
 									<ul class="collapse" id="opcoes_questionario">
 										<li class="submenu" id="criar_questionario"><a href="criar_questionario.php">Criar</a></li>
-										<li class="submenu" id="meus_questionarios"><a href="meus_questionarios.php">Meus Questionários</a></li>
-										<li class="submenu"><a href="#">Corrigir</a></li>                   
+										<li class="submenu" id="meus_questionarios"><a href="meus_questionarios.php">Meus Questionários</a></li>                
 									</ul>
-								<li><a href="#">Consultar Notas</a></li>
+								<li><a href="consultar_notas.php">Consultar Notas</a></li>
 								<li><a id="about" href="about.php">Sobre</a></li>
 							';
 							break;
@@ -25,11 +24,8 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 						case "A":
 							echo '
 								<li class="active" id="home"><a href="home.php">Início</a></li>
-								<li id="responderQuestionarios"><a href="questionarios_para_responder.php">Responder Questionários</a></li>
-								<!--<li data-toggle="collapse" data-target="#opcoes_questionario"><a href="#">Questionários</a></li>
-									<ul class="collapse" id="opcoes_questionario">
-									</ul>-->
-								<li><a href="#">Consultar Notas</a></li>
+								<li id="responderQuestionarios"><a href="questionarios_para_responder.php">Questionários</a></li>
+								<li><a href="consultar_notas.php">Consultar Notas</a></li>
 								<li><a id="about" href="about.php">Sobre</a></li>
 							';
 							break;
@@ -37,12 +33,6 @@ DESCRIÇÃO: Arquivo com o código do Menu e da Navbar do site
 						case "I":
 							echo '
 								<li class="active" id="home"><a href="home.php">Início</a></li>
-								<li data-toggle="collapse" data-target="#opcoes_questionario"><a href="#">Questionários</a></li>
-									<ul class="collapse" id="opcoes_questionario">
-										<li class="submenu" id="criar_questionario"><a href="#">Criar</a></li>
-										<li class="submenu"><a href="#">Responder</a></li>
-										<li class="submenu"><a href="#">Corrigir</a></li>                   
-									</ul>
 								<li data-toggle="collapse" data-target="#opcoes_admin"><a href="#">Admin</a></li>
 									<ul class="collapse" id="opcoes_admin">
 										<li class="submenu" id="turmas"><a href="turmas.php">Turmas</a></li>                   

@@ -75,10 +75,10 @@ create table questionarios(
     quest_materia int(10) not null,
     quest_numPerguntas int(3) not null,
     quest_tempo int(3),
-    quest_dataCriacao date not null,
     quest_visualizar_resposta boolean not null,
     quest_randomiza_perguntas boolean not null,
     quest_necessita_correcao boolean not null,
+    quest_data_criacao datetime not null,
     primary key (quest_codigo),
     foreign key (quest_professor) references usuarios (user_email),
     foreign key (quest_materia) references materias (materia_codigo)
@@ -97,7 +97,7 @@ create table perguntas(
     perg_codigo int(10) not null auto_increment,
     perg_enunciado varchar(5000) not null,
     perg_imagem varchar(500),
-    perg_peso decimal,
+    perg_peso float,
     perg_tipo char(1) not null,
     perg_numAlternativas int(1),
     primary key (perg_codigo)
@@ -125,31 +125,26 @@ create table ordem_perguntas(
     foreign key (perg_codigo) references perguntas (perg_codigo)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-create table respostas_ad(
-    user_email varchar(50) not null,
-    user_resposta varchar(500) not null,
-    quest_codigo int(10) not null,
-    perg_codigo int(10) not null,
-    foreign key (user_email) references usuarios (user_email),
-    foreign key (quest_codigo) references questionarios (quest_codigo),
-    foreign key (perg_codigo) references perguntas (perg_codigo)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-create table respostas_vf(
+create table questionario_aluno(
     user_email varchar(50) not null,
     quest_codigo int(10) not null,
     perg_codigo int(10) not null,
-    alternativa char(1) not null,
-    user_resposta boolean not null,
+    data_resposta datetime not null,
+    resposta_ad varchar(500),
+    resposta_vf varchar(15),
+    turma_codigo int(10) not null,
+    nota double,
     foreign key (user_email) references usuarios (user_email),
     foreign key (quest_codigo) references questionarios (quest_codigo),
-    foreign key (perg_codigo) references perguntas (perg_codigo)
+    foreign key (perg_codigo) references perguntas (perg_codigo),
+    foreign key (turma_codigo) references turmas (turma_codigo)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table notas(
-    nota_valor decimal not null,
+    nota_valor float not null,
     quest_codigo int(10) not null,
     user_email varchar(50) not null,
+    data datetime not null,
     foreign key (quest_codigo) references questionarios (quest_codigo),
     foreign key (user_email) references usuarios (user_email)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;

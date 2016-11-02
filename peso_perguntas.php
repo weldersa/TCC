@@ -31,7 +31,7 @@ DESCRIÇÃO: Página para atribuir o peso das perguntas
 	$perguntas_alternativas = new Pergunta_alternativa();
     $perguntas_alternativas = unserialize($_SESSION["perguntas_alternativas"]);
 
-	$pesoDividido = floor(100 / $_SESSION["numPerguntas"]);
+	$pesoDividido = 100 / $_SESSION["numPerguntas"];
 
 	$pesoTotal = $pesoDividido * $_SESSION["numPerguntas"];
 
@@ -41,7 +41,7 @@ DESCRIÇÃO: Página para atribuir o peso das perguntas
 			$peso = 100 / $_SESSION["numPerguntas"];
 
 			for($i = 1; $i <= $_SESSION["numPerguntas"]; $i++){
-				$perguntas[$i]->setPeso($peso);	
+				$perguntas[$i]->setPeso(round($peso,3));	
 			}
 
 		}else{ // Atribui o peso personalizado pelo user
@@ -150,8 +150,8 @@ DESCRIÇÃO: Página para atribuir o peso das perguntas
 				</div>
 				<br><br>
 				<div class="pull-right">    
-					<button class="btn btn-danger" id="btn_voltar2">Voltar</button>                                                        
-                	<button class="btn btn-success" id="btn_finalizaQuest2">Finalizar Questionário</button>
+					<input type="button" class="btn btn-danger" id="btn_voltar2"value="Voltar"/>
+					<input type="button" class="btn btn-success" id="btn_finalizaQuest2"value="Finalizar Questionário"/>					                                                        
                 </div>
 		   </div>
 		   </form>

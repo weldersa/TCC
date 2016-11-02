@@ -111,7 +111,10 @@ body{
     display: block;
     margin: auto;
 }
-
+#img_preview_2{
+    display: block;
+    margin: auto;
+}
 #div_img_preview{
     display: flex;
     flex-direction: column;
@@ -137,6 +140,9 @@ body{
   body {
     padding-left: 300px;
   }
+  #div_tempo_restante{
+    max-width: 29.3%;
+  }
   #div_img_preview,
   #div_img_pergunta{
     display: flex;
@@ -148,6 +154,9 @@ body{
   #img_preview{
     max-height: 150px;
   }  
+  #img_preview_2{
+    max-height: 400px;
+  } 
   .navmenu {
     padding-top: 0;
   }
@@ -506,7 +515,7 @@ textarea{
 #cod_questionario{
   background-color: inherit;
   border: none;
-  width: 10px;
+  width: 100px;
 }
 
 #div_about{
@@ -525,7 +534,201 @@ textarea{
   font-size: 12pt;
 }
 
-.tabela_tr:hover{
-  background-color: #bababa;
-  cursor: pointer;
+#tempo_restante{
+  max-inline-size: 40px;
+  max-block-size: 40px;
+  size: 30%;
+}
+
+.div_mostra_pergunta{
+  background-color: white;
+  box-shadow: 1px 1px 5px grey;
+  padding: 20px;
+}
+
+.div_mostra_pergunta_primeira{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;   
+}
+
+.div_mostra_pergunta_ultima{
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#tempo_restante{
+  text-align: center;
+}
+
+#pergunta_enunciado{
+  font-weight: bold;
+}
+
+#btn_proxima{
+  margin-bottom: 10px;
+}
+
+.informacao{
+  font-size: 95%;
+}
+
+.pergunta_radio{
+  padding-left: 20px;
+}
+
+#div_tempo_restante{ 
+  width: 100%; 
+  right: 0px;
+  position: fixed;
+  z-index: 2000;
+  margin-top: -8px; 
+  box-shadow: 1px 1px 5px grey;
+  border-radius: 4px;
+}
+
+#input-add-tempo{
+  background-color: white;
+}
+
+#span_nota{
+  font-weight: bold;
+  font-size: 250%;
+}
+
+#img_preview_3{
+  max-width: 400px;
+}
+
+.txt_resposta_vf{
+  width: 20px;
+  text-align: center;
+  background-color: white;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.resposta_correta{
+  color: green;
+  font-weight: bold;
+}
+
+.resposta_incorreta{
+  color: red;
+  font-weight: bold;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.painel-info-green {
+    border-color: #66BB6A;
+}
+.painel-green {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #A5D6A7;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI", Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
+
+.painel-info-red {
+    border-color: #FF5252;
+}
+.painel-red {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #FF5252;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI", Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
+
+.painel-info-blue {
+    border-color: #64B5F6;
+}
+.painel-blue {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #64B5F6;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI", Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
+
+.painel-info-purple {
+    border-color: #B39DDB;
+}
+.painel-purple {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #B39DDB;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI", Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
+
+span.glyphicon-file,
+span.glyphicon-time{
+    font-size: 550%;
+    color: #D50000  ;
+}
+
+span.gliph_aluno,
+span.glyphicon-ok {
+    font-size: 550%;
+    color: #388E3C;
+}
+span.glyphicon-blackboard,
+span.glyphicon-book {
+    font-size: 550%;
+    color: #1565C0;
+}
+
+span.glyphicon-briefcase {
+    font-size: 550%;
+    color: #673AB7;
+}
+
+.text-right {
+    text-align: right;
+}
+.huge{
+    font-size: 40px;
+}
+
+.painel-info-green > .painel-heading {
+    color: #000000;
+    background-color: #A5D6A7;
+    border-color: #A5D6A7;
+}
+
+.painel-info-red > .painel-heading {
+    color: #000000;
+    background-color:#FF5252;
+    border-color: #FF5252;
+}
+
+.painel-info-blue > .painel-heading {
+    color: #000000;
+    background-color:#64B5F6;
+    border-color: #64B5F6;
+}
+
+.painel-info-purple > .painel-heading {
+    color: #000000;
+    background-color:#B39DDB;
+    border-color: #B39DDB;
+}
+
+.painel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }

@@ -146,5 +146,21 @@ DESCRIÇÃO: Classe modelo - Pergunta
             }
             
         }
+
+        public function consultaPergunta($codigo){
+            require_once "classes/conexao.class.php";
+            $conexao = new Conexao();
+            $query = "SELECT * FROM perguntas where perg_codigo = ".$codigo.";";
+            $resultado = $conexao->executaComando($query);
+
+            while($linha = mysqli_fetch_array($resultado)){
+                $this->codigo = $linha["perg_codigo"];
+                $this->enunciado = $linha["perg_enunciado"];
+                $this->imagem = $linha["perg_imagem"];
+                $this->peso = $linha["perg_peso"];
+                $this->tipo = $linha["perg_tipo"];
+                $this->numAlternativas = $linha["perg_numAlternativas"];
+            }
+        }
     }
 ?>

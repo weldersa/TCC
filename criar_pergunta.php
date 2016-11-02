@@ -194,9 +194,11 @@ DESCRIÇÃO: Página de criação de Perguntas
                                     <label id="lbl_trueFalse" class="btn btn-primary">
                                         <input type="radio" name="tipo_pergunta" value="Verdadeiro/Falso" id="cbx_trueFalse" autocomplete="off"><span id="texto_pequeno">Verd. / Falso</span><span id="texto_grande">Verdadeiro ou Falso</span>
                                     </label> 
+                                    <!--
                                     <label id="lbl_dissertativa" class="btn btn-primary">
                                         <input type="radio" name="tipo_pergunta" value="Dissertativa" id="cbx_dissertativa" autocomplete="off">Dissertativa
                                     </label>
+                                    -->
                                 </div>
                                 </center>
                                 <br>                                

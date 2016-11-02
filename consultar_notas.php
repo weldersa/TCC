@@ -10,14 +10,13 @@ include "classes/conexao.class.php";
 	// Inicia a Sessão
 	session_start();
 
-	if($_SESSION["user_tipo"] != "I"){
-        header('location: permission_denied.php'); 
-    }
-
     //Verifica se usuário está logado, caso contrário vai para o login
     if(!isset($_SESSION['user_nome']) && empty($_SESSION['user_nome'])) {
         header('location: logout.php');
     }
+
+$conexao = new Conexao();
+$resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$_SESSION[user_email]'");
 
 ?>
 
@@ -52,25 +51,59 @@ include "classes/conexao.class.php";
 					</center>
 				</div>
 			</div> <!-- Row End -->
-        </div> <!-- Fim do Conteúdo da página -->
+				<br>
+			<div class="row">
+				<div class="col-md-12">
+					<table id="tabela_notas" class="table tablesorter">
+						<thead>
+							<th>Questionário</th>
+							<th>Professor</th>
+							<th>Matéria</th>
+							<th>Data que foi respondido</th>
+							<th>Nota</th>
+						</thead>
+						<tbody id="corpo_tabela">
+							<tr id='tr_sem_notas'>
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+        </div> <!-- Fim do /Conteúdo da página -->
         
         <script> 
             $("#home").addClass("active");
             $("#criar_questionario").removeClass("active");    
 
-			function apresentaNotas(url){
 				var linhas = "";
 				$.ajax({
 					type: "POST",
-					url: "scripts/" + url,
+					url: "scripts/notas_alunos.php",
 					dataType: "json",
 					success: function(retorno){
 						if(retorno == 0){
-							
+							linhas += "<td colspan='5'><center>Nenhuma nota encontrada</center></td>";
+						}else{
+							var contador = 1;
+							retorno.forEach(function(item){
+								linhas += "<tr>";
+									linhas += "<td>"+item['quest_nome']+"</td>";
+									linhas += "<td>"+item['quest_professor']+"</td>";
+									linhas += "<td>"+item['quest_materia']+"</td>";
+									linhas += "<td>"+item['data_resposta']+"</td>";
+									linhas += "<td>"+item['nota_valor']+"</td>";
+								linhas += "</tr>";
+
+							});
+						
 						}
+						
+						$('#corpo_tabela').empty();
+						$('#corpo_tabela').html(linhas);
+
 					}
 				});
-			}
 
         </script>        
     </body>

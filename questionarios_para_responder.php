@@ -25,7 +25,7 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
 
 <html lang="pt-BR">
     <head>
-        <title>Meus Questionários</title>
+        <title>Questionários para Responder</title>
         <?PHP include 'imports.html'; ?>
     </head>
     <body>        
@@ -35,7 +35,7 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
             <div class="container-fluid">
 				<div class="row">
                     <div class="col-md-12 col-xs-12">
-						<h3>Meus Questionários:</h3>
+						<h3>Questionários para responder:</h3>
 						<br>
                     </div>
                 </div> <!-- Row End -->
@@ -69,7 +69,6 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
         <script> 
             //Muda o Link Ativo no Menu lateral
             $("#responderQuestionarios").addClass("active");
-            $("#teste").addClass("active");  
             $("#home").removeClass("active");
 
 			function apresentaQuestionarios(url){
@@ -96,8 +95,7 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
 							$("#panel_questionario").empty();
 							$("#panel_questionario").html(linhas);
 
-						}else{
-							
+						}else{							
 							var contador = 1;
 							retorno.forEach(function(item){
 								//Cabeçalho do Panel
@@ -120,22 +118,47 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
 								linhas += "<div id='colapse_0" + contador + "' class='panel-collapse collapse'>";
 									linhas += "<div class='panel-body'>";
 										linhas += "<form method='POST' target='_self' action='#'>";
-											linhas += "<input id='quest_nome' name='quest_nome' type='hidden' value='"+ item["quest_nome"] +"' readonly/>"
-											linhas += "<b>Código do Questionário:</b> <input id='cod_questionario' name='cod_questionario' type='text' value='"+ item["quest_codigo"] +"' readonly/><br>";
-											linhas += "<b>Matéria:</b> " + item["quest_materia"] + "<br>";
-											linhas += "<b>Número de Perguntas:</b> " + item["quest_numPerguntas"] + "<br>";
 
-											if(item["quest_tempo"] == 0){	
-												linhas += "<b>Tempo para Resposta:</b> Sem limite de tempo<br><br>";
-											}else{
-												linhas += '<b>Tempo para Resposta:</b> "' + item["quest_tempo"] + '" Minutos.<br><br>';
+											switch(url){
+												case "questsParaResponder.php":
+													linhas += "<input id='quest_nome' name='quest_nome' type='hidden' value='"+ item["quest_nome"] +"' readonly/>";
+													linhas += "<input id='quest_turma' name='quest_turma' type='hidden' value='"+ item["turma"] +"' readonly/>";
+													linhas += "<input id='quest_tempo' name='quest_tempo' type='hidden' value='"+ item["quest_tempo"] +"' readonly/>";
+													linhas += "<input id='cod_questionario' name='quest_codigo' type='hidden' value='"+ item["quest_codigo"] +"' readonly/> ";
+													linhas += "<b>Matéria:</b> " + item["quest_materia"] + "<br>";
+													linhas += "<b>Número de Perguntas:</b> " + item["quest_numPerguntas"] + "<br>";
+
+													if(item["quest_tempo"] == 0){	
+														linhas += "<b>Tempo para Resposta:</b> Sem limite de tempo<br>";
+													}else{
+														linhas += '<b>Tempo para Resposta:</b> ' + item["quest_tempo"] + ' Minutos<br>';
+													}
+											
+													linhas += "<b>Aplicado em:</b> " + item["data_inicio"] + "<br>";
+													linhas += "<b>Data limite para resposta:</b> " + item["data_fim"] + "<br>";
+													linhas += "<b>Criado por:</b> " + item["prof_nome"] + " " + item["prof_sobrenome"] + "<br>";
+													linhas += "<div class='botoes_questionarios pull-right'>";
+													linhas += "<button type='button' style='margin-right: 5px' class='btn btn-success btn-responder'>Responder questionário</button>";
+													linhas += "</div>";
+													break;
+
+												case "questsRespondidos.php":
+													linhas += "<input id='quest_nome' name='quest_nome' type='hidden' value='"+ item["quest_nome"] +"' readonly/>";
+													linhas += "<input id='quest_turma' name='quest_turma' type='hidden' value='"+ item["turma_codigo"] +"' readonly/>";
+													linhas += "<input id='quest_tempo' name='quest_tempo' type='hidden' value='"+ item["quest_tempo"] +"' readonly/>";
+													linhas += "<input id='cod_questionario' name='quest_codigo' type='hidden' value='"+ item["quest_codigo"] +"' readonly/> ";
+													linhas += "<input id='data_resposta' name='data_resposta' type='hidden' value='"+ item["data_resposta_completa"] +"' readonly/> ";
+													linhas += "<b>Matéria:</b> " + item["quest_materia"] + "<br>";
+													linhas += "<b>Número de Perguntas:</b> " + item["quest_numPerguntas"] + "<br>";
+													linhas += "<b>Criado por:</b> " + item["prof_nome"] + " " + item["prof_sobrenome"] + "<br>";
+													linhas += "<b>Turma:</b> " + item["turma"] + "<br><br>";
+													linhas += "<b>Repondido em:</b> " + item["data_resposta"] + "<br>";
+
+													linhas += "<div class='botoes_questionarios pull-right'>";
+														linhas += "<button type='button' style='margin-right: 5px' class='btn btn-success btn-verRespostas'>Visualizar Respostas</button>";
+													linhas += "</div>";
+													break;
 											}
-
-											linhas += "<div class='botoes_questionarios pull-right'>";
-												linhas += "<button type='button' style='margin-right: 5px' class='btn btn-danger btn-excluir'>Excluir</button>";
-												linhas += "<button type='button' style='margin-right: 5px' class='btn btn-primary btn-editar'>Editar</button>";
-												linhas += "<button type='button' style='margin-right: 5px' class='btn btn-success btn-aplicar'>Aplicar</button>";
-											linhas += "</div>";
 										linhas += "</form>";
 									linhas += "</div>";
 								linhas += "</div>";
@@ -162,8 +185,13 @@ DESCRIÇÃO: Pagina que lista questionários disponíveis para o aluno responder
 				apresentaQuestionarios("questsRespondidos.php");
 			});
 
-			$("#panel_questionario").delegate('.btn-aplicar', 'click', function(){
-				$(this).parents('form:first').attr("action", "aplicar_questionario.php");
+			$("#panel_questionario").delegate('.btn-responder', 'click', function(){
+				$(this).parents('form:first').attr("action", "respondendo.php");
+				$(this).parents('form:first').submit();
+			});
+
+			$("#panel_questionario").delegate('.btn-verRespostas', 'click', function(){
+				$(this).parents('form:first').attr("action", "apresenta_respostas.php");
 				$(this).parents('form:first').submit();
 			});
         </script>        

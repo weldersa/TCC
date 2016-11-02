@@ -21,7 +21,7 @@ DESCRIÇÃO: Página de sumario de Questionários
     
 $conexao = new Conexao();
 
-$resultado = $conexao->executaComando("SELECT * FROM turmas");
+$resultado = $conexao->executaComando("SELECT * FROM turmas WHERE turma_instituicao=$_SESSION[inst_codigo];");
 
 //$resultado = $conexao->executaComando("SELECT usuarios.user_nome, usuarios.user_email, alunos.aluno_sobrenome, aluno_turma.aluno_email, aluno_turma.turma_codigo, turmas.turma_nome FROM usuarios INNER JOIN alunos ON alunos.aluno_email=usuarios.user_email INNER JOIN aluno_turma ON aluno_turma.aluno_email=usuarios.user_email INNER JOIN turmas ON turmas.turma_codigo=aluno_turma.turma_codigo");
 

@@ -84,5 +84,7 @@ include 'classes/conexao.class.php';
 			window.document.location = $(this).data("href");
 		});
 
+		$("#tabela").tablesorter();
+
 	</script>
 </html>

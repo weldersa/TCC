@@ -40,7 +40,16 @@ DESCRIÇÃO: Classe modelo - Pergunta_Alternativa
         public function consultaAlternativas($perg_codigo){
             require_once 'classes/conexao.class.php';
             $conexao = new Conexao();
-            return $conexao->executaComando("SELECT * FROM perguntas_alternativas WHERE perg_codigo=".$perg_codigo.");");
+            $resultado = $conexao->executaComando("SELECT * FROM perguntas_alternativas WHERE perg_codigo=".$perg_codigo.";");
+
+            while($linha = mysqli_fetch_array($resultado)){
+                $perg_codigo = $linha["perg_codigo"];
+                $alternativa_texto = $linha["alternativa_texto"];
+                $alternativa_ordem = $linha["alternativa_ordem"];
+                $alternativa_correta = $linha["alternativa_correta"];
+
+                $this->setAlternativa($alternativa_ordem, $perg_codigo, $alternativa_texto, $alternativa_correta);
+            }
         }
         
         public function alteraAlternativas(){

@@ -16,6 +16,7 @@ DESCRIÇÃO: Classe modelo - Questionário
         private $visualizaResposta;
         private $randomizarPerguntas;
         private $necessitaCorrecao;
+        private $dataCriacao;
 
         //Getters
         public function getCodigo(){
@@ -42,9 +43,6 @@ DESCRIÇÃO: Classe modelo - Questionário
         public function getDataFim(){
             return $this->dataFim;
         }
-        public function getStatus(){
-            return $this->status;
-        }
         public function getVisualizaResposta(){
             return $this->visualizaResposta;
         }
@@ -53,6 +51,9 @@ DESCRIÇÃO: Classe modelo - Questionário
         }
         public function getNecessitaCorrecao(){
             return $this->necessitaCorrecao;
+        }
+        public function getDataCriacao(){
+            return $this->dataCriacao;
         }
 
         //Setters
@@ -80,9 +81,6 @@ DESCRIÇÃO: Classe modelo - Questionário
         public function setDataFim($dataFim){
             $this->dataFim = $dataFim;
         }
-        public function setStatus($status){
-            $this->status = $status;
-        }
         public function setVisualizaResposta($visualizaResposta){
             $this->visualizaResposta = $visualizaResposta;
         }
@@ -92,13 +90,17 @@ DESCRIÇÃO: Classe modelo - Questionário
         public function setNecessitaCorrecao($necessitaCorrecao){
             $this->necessitaCorrecao = $necessitaCorrecao;
         }
+        public function setDataCriacao($dataCriacao){
+            $this->dataCriacao = $dataCriacao;
+        }
+        
         
         //Função para Inserir Questionários no Banco de Dados
         public function insertQuest(){
             require_once 'classes/conexao.class.php';
             $conexao = new Conexao();
             
-            $query = "INSERT INTO questionarios (quest_nome, quest_professor, quest_materia, quest_numPerguntas, quest_tempo, quest_visualizar_resposta, quest_randomiza_perguntas, quest_necessita_correcao) VALUES ('".$this->nome."', '".$this->professor."', ".$this->materia.", ".$this->numPerguntas.", ".$this->tempo.", ".$this->visualizaResposta.", ".$this->randomizarPerguntas.", ".$this->necessitaCorrecao.");";
+            $query = "INSERT INTO questionarios (quest_nome, quest_professor, quest_materia, quest_numPerguntas, quest_tempo, quest_visualizar_resposta, quest_randomiza_perguntas, quest_necessita_correcao, quest_data_criacao) VALUES ('".$this->nome."', '".$this->professor."', ".$this->materia.", ".$this->numPerguntas.", ".$this->tempo.", ".$this->visualizaResposta.", ".$this->randomizarPerguntas.", ".$this->necessitaCorrecao.", '".$this->dataCriacao."');";
             $cod_quest = $conexao->retornaId($query) or die("É, parece que deu erro na inserção do questionário...<br><br>".$query);
             return $cod_quest;
         }
@@ -114,7 +116,19 @@ DESCRIÇÃO: Classe modelo - Questionário
         public function consultaQuest($codigo){
             require_once 'classes/conexao.class.php';
             $conexao = new Conexao();
-            return $conexao->executaComando("SELECT * FROM questionarios WHERE quest_codigo=".$codigo.";");
+            $resultado = $conexao->executaComando("SELECT * FROM questionarios WHERE quest_codigo=".$codigo.";");
+
+            while($linha = mysqli_fetch_array($resultado)){
+                $this->codigo = $linha["quest_codigo"];
+                $this->nome = $linha["quest_nome"];
+                $this->professor = $linha["quest_professor"];
+                $this->materia = $linha["quest_materia"];
+                $this->numPerguntas = $linha["quest_numPerguntas"];
+                $this->tempo = $linha["quest_tempo"];
+                $this->visualizaResposta = $linha["quest_visualizar_resposta"];
+                $this->randomizarPerguntas = $linha["quest_randomiza_perguntas"];
+                $this->necessitaCorrecao = $linha["quest_necessita_correcao"];
+            }
         }
 
         public function consultaQuestProfessor($professor){
