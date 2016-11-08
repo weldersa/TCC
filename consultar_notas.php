@@ -56,25 +56,25 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 
 									if($_SESSION['user_tipo'] == 'I'){
 										?>
-											<option value='questionarios.quest_nome'>Questionário</option>
-											<option value='materias.materia_nome'>Matéria</option>
-											<option value='concat (usuarios.user_nome, ' ', alunos.aluno_sobrenome)'>Aluno</option>
-											<option value='professores.professor_email'>Professor</option>
+											<option value="questionarios.quest_nome">Questionário</option>
+											<option value="materias.materia_nome">Matéria</option>
+											<option value="concat (usuarios.user_nome, ' ', alunos.aluno_sobrenome)">Aluno</option>
+											<option value="professores.professor_email">Professor</option>
 										<?php	
 									}
 
 									if($_SESSION['user_tipo'] == 'P'){
 										?>
-											<option value='questionarios.quest_nome'>Questionário</option>
-											<option value='materias.materia_nome'>Matéria</option>
+											<option value="questionarios.quest_nome">Questionário</option>
+											<option value="materias.materia_nome">Matéria</option>
 											<option value="concat (usuarios.user_nome, ' ', alunos.aluno_sobrenome)">Aluno</option>
 										<?php
 									}
 
 									if($_SESSION['user_tipo'] == 'A'){
 										?>
-											<option value='questionarios.quest_nome'>Questionário</option>
-											<option value='materias.materia_nome'>Matéria</option>
+											<option value="questionarios.quest_nome">Questionário</option>
+											<option value="materias.materia_nome">Matéria</option>
 										<?php
 									}
 
@@ -110,8 +110,10 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 									<th>Nota</th>";
 								}
 								if($_SESSION['user_tipo'] == 'I'){
-									echo "<th>Questionário</th>
+									echo "<th>Aluno</th>
+									<th>Questionário</th>
 									<th>Professor</th>
+									<th>Turma</th>
 									<th>Matéria</th>
 									<th>Data que foi respondido</th>
 									<th>Nota</th>";
@@ -131,8 +133,6 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
         <script> 
             $("#home").addClass("active");
             $("#criar_questionario").removeClass("active");    
-
-			$('#tabela_notas_alunos').tablesorter();
 
 			$(document).ready(function(){
 				notas_alunos();
@@ -164,7 +164,11 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 					dataType: "json",
 					success: function(retorno){
 						if(retorno == 0){
-							linhas += "<td colspan='5'><center>Nenhuma nota encontrada</center></td>";
+							if(usuario_tipo == 'I'){
+								linhas += "<td colspan='7'><center>Nenhuma nota encontrada</center></td>";
+							}else{
+								linhas += "<td colspan='5'><center>Nenhuma nota encontrada</center></td>";
+							}
 						}else{
 							var contador = 1;
 							retorno.forEach(function(item){
@@ -188,22 +192,21 @@ $resultado = $conexao->executaComando("SELECT * FROM notas WHERE user_email = '$
 								}
 								if(usuario_tipo == 'I'){
 									linhas += "<tr>";
+										linhas += "<td>"+item['quest_aluno']+" "+item['aluno_sobrenome']+"</td>";
 										linhas += "<td>"+item['quest_nome']+"</td>";
-										linhas += "<td>"+item['quest_professor']+"</td>";
+										linhas += "<td>"+item['professor_email']+"</td>";
+										linhas += "<td>"+item['turma_nome']+"</td>";
 										linhas += "<td>"+item['quest_materia']+"</td>";
 										linhas += "<td>"+item['data_resposta']+"</td>";
 										linhas += "<td>"+item['nota_valor']+"</td>";
 									linhas += "</tr>";
 								}
 							});
-						
 						}
-						
 						$('#corpo_tabela').empty();
-						$('#corpo_tabela').html(linhas);
-
+						$('#corpo_tabela').html(linhas);					
 					}
-				});
+				}); 
 			}
 
         </script>        
