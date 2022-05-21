@@ -32,7 +32,7 @@ DESCRIÇÃO: Página de criação de Questionários
                 $questionario->setNome($_POST['txt_quest_nome']);
                 $questionario->setMateria($_POST['txt_quest_materia']);
                 $questionario->setTempo($_POST["txt_tempo_resposta"]);
-                $questionario->setVisualizaResposta();
+                $questionario->setVisualizaResposta($_POST["chk_tempo_resposta"]);
                 $_SESSION["questionario"] = serialize($questionario);
                 $_SESSION["numPerguntas"] = 0;
                 $perguntas = array();
